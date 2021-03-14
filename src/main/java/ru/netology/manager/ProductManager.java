@@ -1,4 +1,4 @@
-package ru.netology.domain;
+package ru.netology.manager;
 
 import lombok.*;
 import ru.netology.domain.Book;
@@ -9,8 +9,12 @@ import ru.netology.repository.ProductRepository;
 @Data
 @NoArgsConstructor
 
+
 public class ProductManager {
     ProductRepository repository;
+
+    private Product[] items = new Product[0];
+    private int moviesFeed = 4;
 
     public ProductManager(ProductRepository repository) {
         this.repository = repository;
@@ -53,5 +57,28 @@ public class ProductManager {
             }
         }
         return false;
+    }
+
+    public void removeById(int id) {
+        int length = items.length - 1;
+        Product[] tmp = new Product[length];
+        int index = 0;
+        for (Product item : items) {
+            if (item.getId() != id) {
+                tmp[index] = item;
+                index++;
+            }
+        }
+        // меняем наши элементы
+        items = tmp;
+    }
+
+    public Product[] getAll() {
+        Product[] result = new Product[items.length];
+        for (int i = 0; i < result.length; i++) {
+            int index = items.length - i - 1;
+            result[i] = items[index];
+        }
+        return result;
     }
 }

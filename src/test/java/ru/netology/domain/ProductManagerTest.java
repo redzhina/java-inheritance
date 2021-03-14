@@ -1,13 +1,9 @@
 package ru.netology.domain;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import ru.netology.domain.Book;
-import ru.netology.domain.Smartphone;
-import ru.netology.domain.Product;
+import ru.netology.manager.ProductManager;
 import ru.netology.repository.ProductRepository;
 import static org.junit.jupiter.api.Assertions.*;
-import org.mockito.Mock;
 
 public class ProductManagerTest {
     private ProductRepository repository = new ProductRepository();
@@ -80,6 +76,32 @@ public class ProductManagerTest {
         repository.removeById(idToRemove);
         Product[] expected = new Product[]{secondBook};
         Product[] actual = repository.findAll();
+        assertArrayEquals(expected, actual);
+    }
+
+    @Test
+
+    public void shouldBeEmpty() {
+        Product[] expected = new Product[0];
+        Product[] actual = manager.getAll();
+        assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldAddOne() {
+        repository.add(firstBook);
+        Product[] expected = new Product[]{firstBook};
+        Product[] actual = manager.getAll();
+        assertArrayEquals(expected, actual);
+    }
+
+    @Test
+
+    public void shouldAddSeveral() {
+        manager.add(secondBook);
+        manager.add(firstSmartphone);
+        Product[] expected = new Product[0];
+        Product[] actual = manager.getAll();
         assertArrayEquals(expected, actual);
     }
 }
