@@ -83,15 +83,15 @@ public class ProductManagerTest {
 
     public void shouldBeEmpty() {
         Product[] expected = new Product[0];
-        Product[] actual = manager.getAll();
+        Product[] actual = repository.getAll();
         assertArrayEquals(expected, actual);
     }
 
     @Test
     public void shouldAddOne() {
-        repository.add(firstBook);
+        manager.add(firstBook);
         Product[] expected = new Product[]{firstBook};
-        Product[] actual = manager.getAll();
+        Product[] actual = repository.getAll();
         assertArrayEquals(expected, actual);
     }
 
@@ -100,8 +100,8 @@ public class ProductManagerTest {
     public void shouldAddSeveral() {
         manager.add(secondBook);
         manager.add(firstSmartphone);
-        Product[] expected = new Product[0];
-        Product[] actual = manager.getAll();
+        Product[] expected = new Product[]{secondBook, firstSmartphone};
+        Product[] actual = repository.getAll();
         assertArrayEquals(expected, actual);
     }
 }
