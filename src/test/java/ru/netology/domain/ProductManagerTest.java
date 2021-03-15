@@ -12,6 +12,7 @@ public class ProductManagerTest {
     private Book secondBook = new Book(2, "Тайные виды на гору Фудзи", 2000, "Виктор Пелевин");
     private Smartphone firstSmartphone = new Smartphone(3, "iPhone X", 60000, "Apple");
     private Smartphone secondSmartphone = new Smartphone(4, "Galaxy 10", 55000, "Samsung");
+    private Smartphone thirdSmartphone = new Smartphone(5, "Унесенные ветром", 90000, "Custom Mobile");
 
     public void setUp() {
         manager.add(firstBook);
@@ -102,6 +103,15 @@ public class ProductManagerTest {
         manager.add(firstSmartphone);
         Product[] expected = new Product[]{secondBook, firstSmartphone};
         Product[] actual = repository.getAll();
+        assertArrayEquals(expected, actual);
+    }
+
+    @Test
+
+    public void shouldSearchByNameSeveral() {
+        setUp();
+        Product[] expected = new Product[]{firstBook, thirdSmartphone};
+        Product[] actual = manager.searchBy("Унесенные ветром");
         assertArrayEquals(expected, actual);
     }
 }
