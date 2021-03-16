@@ -8,8 +8,6 @@ import ru.netology.repository.ProductRepository;
 
 @Data
 @NoArgsConstructor
-
-
 public class ProductManager {
     ProductRepository repository;
 

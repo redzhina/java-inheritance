@@ -1,7 +1,10 @@
-package ru.netology.domain;
+package ru.netology.manager;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import ru.netology.domain.Book;
+import ru.netology.domain.Product;
+import ru.netology.domain.Smartphone;
 import ru.netology.manager.ProductManager;
 import ru.netology.repository.ProductRepository;
 import static org.junit.jupiter.api.Assertions.*;
@@ -26,7 +29,6 @@ public class ProductManagerTest {
     }
 
     @Test
-
     public void shouldFindAll() {
         Product[] expected = new Product[]{firstBook, secondBook, firstSmartphone, secondSmartphone, thirdSmartphone};
         Product[] actual = manager.findAll();
@@ -34,7 +36,6 @@ public class ProductManagerTest {
     }
 
     @Test
-
     public void shouldSearchByName() {
         Product[] expected = new Product[]{secondBook};
         Product[] actual = manager.searchBy("Тайные виды на гору Фудзи");
@@ -42,7 +43,6 @@ public class ProductManagerTest {
     }
 
     @Test
-
     public void shouldSearchByAuthor() {
         Product[] expected = new Product[]{secondBook};
         Product[] actual = manager.searchBy("виктор пелевин");
@@ -50,7 +50,6 @@ public class ProductManagerTest {
     }
 
     @Test
-
     public void shouldSearchByLabel() {
         Product[] expected = new Product[]{firstSmartphone};
         Product[] actual = manager.searchBy("apple");
@@ -58,7 +57,6 @@ public class ProductManagerTest {
     }
 
     @Test
-
     public void shouldFindBySmartphoneName() {
         Product[] expected = new Product[]{secondSmartphone};
         Product[] actual = manager.searchBy("galaxy 10");
@@ -66,7 +64,6 @@ public class ProductManagerTest {
     }
 
     @Test
-
     public void shouldRemoveById() {
         int idToRemove = 1;
         manager.idToRemove(idToRemove);
@@ -77,7 +74,6 @@ public class ProductManagerTest {
 
 
     @Test
-
     public void shouldSearchByNameSeveral() {
         Product[] expected = new Product[]{firstBook, thirdSmartphone};
         Product[] actual = manager.searchBy("Унесенные ветром");
