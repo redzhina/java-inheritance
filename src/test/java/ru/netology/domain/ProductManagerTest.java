@@ -1,5 +1,6 @@
 package ru.netology.domain;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.netology.manager.ProductManager;
 import ru.netology.repository.ProductRepository;
@@ -14,35 +15,35 @@ public class ProductManagerTest {
     private Smartphone secondSmartphone = new Smartphone(4, "Galaxy 10", 55000, "Samsung");
     private Smartphone thirdSmartphone = new Smartphone(5, "Унесенные ветром", 90000, "Custom Mobile");
 
+
+    @BeforeEach
     public void setUp() {
         manager.add(firstBook);
         manager.add(secondBook);
         manager.add(firstSmartphone);
         manager.add(secondSmartphone);
+        manager.add(thirdSmartphone);
     }
 
     @Test
 
-    public void shouldGetAll() {
-        setUp();
-        Product[] expected = new Product[]{firstBook, secondBook, firstSmartphone, secondSmartphone};
-        Product[] actual = manager.getRepository().findAll();
+    public void shouldFindAll() {
+        Product[] expected = new Product[]{firstBook, secondBook, firstSmartphone, secondSmartphone, thirdSmartphone};
+        Product[] actual = manager.findAll();
         assertArrayEquals(expected, actual);
     }
 
     @Test
 
     public void shouldSearchByName() {
-        setUp();
-        Product[] expected = new Product[]{firstBook};
-        Product[] actual = manager.searchBy("Унесенные ветром");
+        Product[] expected = new Product[]{secondBook};
+        Product[] actual = manager.searchBy("Тайные виды на гору Фудзи");
         assertArrayEquals(expected, actual);
     }
 
     @Test
 
     public void shouldSearchByAuthor() {
-        setUp();
         Product[] expected = new Product[]{secondBook};
         Product[] actual = manager.searchBy("виктор пелевин");
         assertArrayEquals(expected, actual);
@@ -51,7 +52,6 @@ public class ProductManagerTest {
     @Test
 
     public void shouldSearchByLabel() {
-        setUp();
         Product[] expected = new Product[]{firstSmartphone};
         Product[] actual = manager.searchBy("apple");
         assertArrayEquals(expected, actual);
@@ -60,7 +60,6 @@ public class ProductManagerTest {
     @Test
 
     public void shouldFindBySmartphoneName() {
-        setUp();
         Product[] expected = new Product[]{secondSmartphone};
         Product[] actual = manager.searchBy("galaxy 10");
         assertArrayEquals(expected, actual);
@@ -69,47 +68,17 @@ public class ProductManagerTest {
     @Test
 
     public void shouldRemoveById() {
-        Book firstBook = new Book(1, "Унесенные ветром", 1000, "Маргарет Митчелл");
-        Book secondBook = new Book(2, "Тайные виды на гору Фудзи", 2000, "Виктор Пелевин");
         int idToRemove = 1;
-        manager.add(firstBook);
-        manager.add(secondBook);
-        repository.removeById(idToRemove);
-        Product[] expected = new Product[]{secondBook};
-        Product[] actual = repository.findAll();
+        manager.idToRemove(idToRemove);
+        Product[] expected = new Product[]{secondBook, firstSmartphone, secondSmartphone, thirdSmartphone};
+        Product[] actual = manager.findAll();
         assertArrayEquals(expected, actual);
     }
 
-    @Test
-
-    public void shouldBeEmpty() {
-        Product[] expected = new Product[0];
-        Product[] actual = repository.getAll();
-        assertArrayEquals(expected, actual);
-    }
-
-    @Test
-    public void shouldAddOne() {
-        manager.add(firstBook);
-        Product[] expected = new Product[]{firstBook};
-        Product[] actual = repository.getAll();
-        assertArrayEquals(expected, actual);
-    }
-
-    @Test
-
-    public void shouldAddSeveral() {
-        manager.add(secondBook);
-        manager.add(firstSmartphone);
-        Product[] expected = new Product[]{secondBook, firstSmartphone};
-        Product[] actual = repository.getAll();
-        assertArrayEquals(expected, actual);
-    }
 
     @Test
 
     public void shouldSearchByNameSeveral() {
-        setUp();
         Product[] expected = new Product[]{firstBook, thirdSmartphone};
         Product[] actual = manager.searchBy("Унесенные ветром");
         assertArrayEquals(expected, actual);

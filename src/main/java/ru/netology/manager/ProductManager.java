@@ -21,6 +21,14 @@ public class ProductManager {
         repository.add(product);
     }
 
+    public Product[] findAll() {
+        return repository.findAll();
+    }
+
+    public void idToRemove(int id) {
+        repository.removeById(id);
+    }
+
     public Product[] searchBy(String text) {
         Product[] result = new Product[0];
         for (Product item : repository.findAll()) {
